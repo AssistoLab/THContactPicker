@@ -104,6 +104,7 @@
     self.textView = [[THContactTextField alloc] init];
     self.textView.delegate = self;
     self.textView.hidden = YES;
+	self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     [self addSubview:self.textView];
     
     // Create a tap gesture recognizer
@@ -216,6 +217,11 @@
 }
 
 #pragma mark - UITextViewDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	return NO;
+}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     self.textView.hidden = NO;
