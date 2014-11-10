@@ -23,6 +23,9 @@
 @property (nonatomic, strong) THBubbleStyle *bubbleStyle;
 @property (nonatomic, strong) THBubbleStyle *bubbleSelectedStyle;
 
+// Fix to avoid layout problem on first typing
+@property (nonatomic, assign, getter = hasLayoutViewAfterFirstTextEdition) BOOL layoutViewAfterFirstTextEdition;
+
 @end
 
 @implementation THContactPickerView
@@ -449,8 +452,13 @@
     if ([self.delegate respondsToSelector:@selector(contactPickerTextViewDidChange:)]){
         [self.delegate contactPickerTextViewDidChange:textView.text];
     }
-    
-    if ([textView.text isEqualToString:@""] && self.contacts.count == 0){
+	
+	if (![self hasLayoutViewAfterFirstTextEdition]) {
+		self.layoutViewAfterFirstTextEdition = YES;
+		[self layoutView];
+	}
+	
+	if ([textView.text isEqualToString:@""] && self.contacts.count == 0){
         self.placeholderLabel.hidden = NO;
     } else {
         self.placeholderLabel.hidden = YES;
