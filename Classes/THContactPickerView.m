@@ -331,7 +331,7 @@
 
 - (void)layoutView {
     CGRect frameOfLastBubble = CGRectNull;
-    int lineCount = 0;
+    NSInteger lineCount = 0;
     
     // Loop through selectedContacts and position/add them to the view
     for (id contactKey in self.contactKeys){
