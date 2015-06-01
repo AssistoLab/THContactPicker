@@ -33,7 +33,7 @@
         }
     }
     
-    if (![textField.text length] && [[[UIDevice currentDevice] systemVersion] intValue] >= 8) {
+    if (![textField.text length] && [[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
         [self deleteBackward];
     }
     
