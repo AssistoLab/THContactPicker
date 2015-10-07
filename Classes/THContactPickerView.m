@@ -436,7 +436,7 @@
 
 - (void)textFieldDidHitBackspaceWithEmptyText:(THContactTextField *)textView {
     self.textView.hidden = NO;
-    
+		
     if (self.contacts.count) {
         // Capture "delete" key press when cell is empty
         self.selectedContactBubble = [self.contacts objectForKey:[self.contactKeys lastObject]];
@@ -471,6 +471,17 @@
     }
 }
 
+//HACK: see this: http://stackoverflow.com/questions/25371254/how-to-detect-delete-key-on-an-uitextfield-in-ios-8
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	BOOL isPressedBackspaceAfterSingleSpaceSymbol = [textField.text isEqualToString:@""] && range.location == 0 && range.length == 0 && string.length == 0;
+	if (isPressedBackspaceAfterSingleSpaceSymbol) {
+		[self textFieldDidHitBackspaceWithEmptyText:(THContactTextField *)textField];
+	}
+	
+	return YES;
+}
+
 #pragma mark - THContactBubbleDelegate Functions
 
 - (void)contactBubbleWasSelected:(THContactBubble *)contactBubble {
@@ -478,7 +489,7 @@
         [self.selectedContactBubble unSelect];
     }
     self.selectedContactBubble = contactBubble;
-    
+
     [self.textView resignFirstResponder];
     self.textView.text = @"";
     self.textView.hidden = YES;
