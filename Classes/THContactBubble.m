@@ -125,7 +125,7 @@
     // Adjust the label frames
     [self.label sizeToFit];
     CGRect frame = self.label.frame;
-    frame.origin.x = kHorizontalPadding;
+    frame.origin.x = 0;
     frame.origin.y = kVerticalPadding;
     
     CGFloat maxWidth = self.maxWidth - 2 * kHorizontalPadding;
