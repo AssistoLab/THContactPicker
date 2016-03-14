@@ -323,7 +323,7 @@
 
 - (CGFloat)firstLineXOffset {
     if (self.promptLabel.text == nil){
-        return kHorizontalSidePadding;
+        return 0;
     } else {
         return self.promptLabel.frame.origin.x + self.promptLabel.frame.size.width + 1;
     }
@@ -375,7 +375,7 @@
     } else { // place text view on the next line
         lineCount++;
         
-        textViewFrame.origin.x = kHorizontalSidePadding;
+        textViewFrame.origin.x = 0;
         textViewFrame.size.width = self.frame.size.width - 2 * kHorizontalPadding;
         
         if (self.contacts.count == 0){
